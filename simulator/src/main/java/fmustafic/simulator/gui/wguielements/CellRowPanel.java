@@ -58,6 +58,7 @@ public class CellRowPanel extends JPanel {
                 g.fillRect(j * cellWidth, currentY, cellWidth, this.CELL_HEIGHT);
             }
         }
+        
     }
     
 }

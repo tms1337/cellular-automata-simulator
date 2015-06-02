@@ -16,14 +16,16 @@ public class WolframCellRow {
     private WolframRules rules;
     
     private Boolean[] rowState;
+    private Boolean[] nextRowState; // temp
     
     public WolframCellRow(int size, int ruleEnumeration) {
         this.rowState = new Boolean[size];
+        this.nextRowState = new Boolean[size];
         this.rules = new WolframRules(ruleEnumeration);
     }
     
     public Boolean[] getRowState() {
-        return this.rowState;
+        return this.rowState.clone();
     }
     
     public void setRowState(Boolean[] state) {
@@ -60,6 +62,8 @@ public class WolframCellRow {
         for(int i = 0; i < this.rowState.length; i++) {
             this.evolveSpecific(i);
         }
+        
+        this.rowState = this.nextRowState.clone();
     }
     
     public void evolveSpecific(int n) {
@@ -74,7 +78,7 @@ public class WolframCellRow {
         int rightIndex = 
                 (n + 1 >= rowState.length) ? 0 : (n + 1);
 
-        this.rowState[n] = this.rules.getNextState(
+        this.nextRowState[n] = this.rules.getNextState(
                 this.rowState[leftIndex], 
                 this.rowState[n], 
                 this.rowState[rightIndex]

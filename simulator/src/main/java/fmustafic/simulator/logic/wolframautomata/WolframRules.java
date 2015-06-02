@@ -2,7 +2,6 @@ package fmustafic.simulator.logic.wolframautomata;
 
 import fmustafic.simulator.logic.math.MathUtils;
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
 
 /**
  *
@@ -41,8 +40,8 @@ public class WolframRules {
             Boolean right
     ) {
         return MathUtils.bitAt(
-                this.getRuleEnumeration(), 
-                MathUtils.parseBinary(new Boolean[] { left, element, right })
+            this.getRuleEnumeration(), 
+            MathUtils.parseBinary(new Boolean[] { left, element, right })
         );
     }
     
@@ -52,8 +51,8 @@ public class WolframRules {
         }
         
         return MathUtils.bitAt(
-                this.getRuleEnumeration(), 
-                MathUtils.parseBinary(neighborhood)
+            this.getRuleEnumeration(), 
+            MathUtils.parseBinary(neighborhood)
         );
     }
     

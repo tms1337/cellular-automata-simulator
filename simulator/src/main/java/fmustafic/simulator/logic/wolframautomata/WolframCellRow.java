@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fmustafic.simulator.logic.oned;
+package fmustafic.simulator.logic.wolframautomata;
 
 import java.security.InvalidParameterException;
 
@@ -20,6 +20,10 @@ public class WolframCellRow {
     public WolframCellRow(int size, int ruleEnumeration) {
         this.rowState = new Boolean[size];
         this.rules = new WolframRules(ruleEnumeration);
+    }
+    
+    public Boolean[] getRowState() {
+        return this.rowState;
     }
     
     public void setRowState(Boolean[] state) {

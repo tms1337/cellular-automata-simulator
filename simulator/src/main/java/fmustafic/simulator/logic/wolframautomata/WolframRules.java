@@ -1,4 +1,4 @@
-package fmustafic.simulator.logic.oned;
+package fmustafic.simulator.logic.wolframautomata;
 
 import fmustafic.simulator.logic.math.MathUtils;
 import java.security.InvalidParameterException;

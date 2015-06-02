@@ -5,6 +5,7 @@
  */
 package fmustafic.simulator.logic.oned;
 
+import fmustafic.simulator.logic.wolframautomata.WolframRules;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

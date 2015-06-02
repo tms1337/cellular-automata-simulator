@@ -1,2 +1,2 @@
 # cellular-automata-simulator
-Simple cellular automata simulator with WinForm GUI
+Simple cellular automata simulator. Java based GUI.

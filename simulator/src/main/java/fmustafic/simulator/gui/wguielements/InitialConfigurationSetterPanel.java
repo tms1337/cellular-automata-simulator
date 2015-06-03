@@ -75,6 +75,13 @@ public class InitialConfigurationSetterPanel extends JPanel {
         this.repaint();
     }
     
+    public void setMiddleBlack() {
+        int stateSize = this.state.length;
+        for(int i = 0; i < stateSize; i++) {
+            this.state[i] = (i == stateSize / 2);
+        }
+    }
+    
     public Boolean[] getState() {
         return this.state;
     }
@@ -91,6 +98,7 @@ public class InitialConfigurationSetterPanel extends JPanel {
             g.fillRect(i * cellWidth, 0, cellWidth, cellHeight);
         }
     }
+
 
     
     

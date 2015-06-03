@@ -29,6 +29,7 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.white);
         
         reloadConfigPanel();
+        reloadCellRow();
     }
     
     /**
@@ -56,28 +57,30 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(850, 700));
+        setBounds(new java.awt.Rectangle(300, 100, 0, 0));
+        setPreferredSize(new java.awt.Dimension(1024, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel1.setForeground(java.awt.Color.gray);
         jLabel1.setText("50");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 50, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 30, 50, 30));
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel2.setForeground(java.awt.Color.darkGray);
         jLabel2.setText("Time evolution:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(217, 126, 24));
+        jLabel3.setForeground(new java.awt.Color(227, 149, 35));
         jLabel3.setText("Number of cells:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, -1, -1));
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 300));
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 800, 300));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(980, 520));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 980, 520));
 
         jButton3.setBackground(java.awt.Color.white);
         jButton3.setForeground(new java.awt.Color(227, 149, 35));
@@ -87,7 +90,7 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
 
         jButton4.setBackground(java.awt.Color.white);
         jButton4.setForeground(new java.awt.Color(227, 149, 35));
@@ -97,11 +100,12 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
-        jSlider1.setMajorTickSpacing(8);
-        jSlider1.setMaximum(800);
-        jSlider1.setMinorTickSpacing(8);
+        jSlider1.setMajorTickSpacing(100);
+        jSlider1.setMaximum(980);
+        jSlider1.setMinimum(2);
+        jSlider1.setMinorTickSpacing(2);
         jSlider1.setPaintTicks(true);
         jSlider1.setToolTipText("");
         jSlider1.setValue(800);
@@ -116,7 +120,7 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
                 jSlider1MouseReleased(evt);
             }
         });
-        getContentPane().add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, -1, -1));
+        getContentPane().add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 40, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(217, 126, 24));
@@ -128,24 +132,26 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         jLabel7.setText("Initial configuration:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jButton5.setText("Evolve");
+        jButton5.setForeground(new java.awt.Color(234, 149, 35));
+        jButton5.setText("Evolve once");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, -1, -1));
 
+        jButton6.setForeground(new java.awt.Color(234, 149, 35));
         jButton6.setText("Evolve steps");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 200, -1, -1));
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, -1, -1));
 
         jTextField2.setText("100");
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 200, 90, -1));
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 90, -1));
 
         jButton7.setBackground(java.awt.Color.white);
         jButton7.setForeground(new java.awt.Color(227, 149, 35));
@@ -155,17 +161,17 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, -1, -1));
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, -1, -1));
 
-        jButton8.setBackground(java.awt.Color.white);
-        jButton8.setForeground(new java.awt.Color(227, 149, 35));
+        jButton8.setBackground(new java.awt.Color(227, 149, 35));
+        jButton8.setForeground(java.awt.Color.white);
         jButton8.setText("load configuration!");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, -1));
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 170, -1));
 
         jTextField1.setForeground(java.awt.Color.gray);
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -178,9 +184,19 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 80, -1));
 
         jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(217, 126, 24));
+        jLabel8.setForeground(new java.awt.Color(227, 149, 35));
         jLabel8.setText("Wolfram rule:");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+
+        jButton9.setBackground(java.awt.Color.white);
+        jButton9.setForeground(new java.awt.Color(227, 149, 35));
+        jButton9.setText("middle black");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -194,7 +210,7 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void reloadConfigPanel() {
-        int configPanelWidth = 800;
+        int configPanelWidth = this.jScrollPane1.getWidth();
         int configPanelHeight = 10;
         
         // due to constructor calling the method
@@ -210,10 +226,24 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
                 );
         configPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.getContentPane().add(configPanel, new AbsoluteConstraints(
-                25, 100, 
+                10, 100, 
                 configPanelWidth, configPanelHeight
         ));
+        
         this.pack();
+    }
+    
+    private void reloadCellRow() {
+        this.cellRowPanel = new CellRowPanel(
+                        this.jScrollPane1.getWidth(), 
+                        this.jScrollPane1.getWidth() / 
+                                this.configPanel.getState().length, 
+                        Integer.parseInt(this.jTextField1.getText()), 
+                        this.configPanel.getState()
+                );
+        this.jScrollPane1.setViewportView(
+            this.cellRowPanel  
+        );
     }
     
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -249,21 +279,19 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        this.cellRowPanel = new CellRowPanel(
-                        this.jScrollPane1.getWidth(), 
-                        this.jScrollPane1.getWidth() / 
-                                this.configPanel.getState().length, 
-                        110, 
-                        this.configPanel.getState()
-                );
-        this.jScrollPane1.setViewportView(
-            this.cellRowPanel  
-        );
+        reloadCellRow();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        this.configPanel.setMiddleBlack();
+        
+        this.repaint();
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,6 +338,7 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

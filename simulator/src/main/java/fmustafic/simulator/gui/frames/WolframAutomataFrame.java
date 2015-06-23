@@ -9,6 +9,7 @@ import fmustafic.simulator.gui.wguielements.CellRowPanel;
 import fmustafic.simulator.gui.wguielements.InitialConfigurationSetterPanel;
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 /**
@@ -279,7 +280,11 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        reloadCellRow();
+        try {
+            reloadCellRow();
+        } catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

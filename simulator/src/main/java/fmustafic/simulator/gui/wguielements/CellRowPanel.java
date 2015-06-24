@@ -43,7 +43,7 @@ public class CellRowPanel extends JPanel {
         );
     }
     
-     @Override
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         

@@ -101,20 +101,6 @@ public class MathUtilsTest {
      * Test of parseBinary method, of class MathUtils.
      */
     @Test
-    public void testParseBinary_BooleanArr() {
-        System.out.println("parseBinary");
-        Boolean[] binaryArray = null;
-        int expResult = 0;
-        int result = MathUtils.parseBinary(binaryArray);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of parseBinary method, of class MathUtils.
-     */
-    @Test
     public void testParseBinary_String() {
         System.out.println("parseBinary");
         String binaryString = "100";

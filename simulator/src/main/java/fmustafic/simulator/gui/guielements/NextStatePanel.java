@@ -30,6 +30,10 @@ public class NextStatePanel extends JPanel implements MouseListener {
         this.addMouseListener(this);
     }
     
+    public Boolean getCurrentState() {
+        return this.currentState;
+    }
+    
     @Override
     public void paintComponent(Graphics g) {
         g.setColor(currentState ? Color.BLACK : Color.WHITE);

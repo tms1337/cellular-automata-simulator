@@ -8,10 +8,11 @@ package fmustafic.simulator.gui;
 import fmustafic.simulator.gui.guielements.EvolutionPanel;
 import fmustafic.simulator.gui.guielements.NeighborhoodPanel;
 import fmustafic.simulator.gui.guielements.NextStatePanel;
-import fmustafic.simulator.logic.InitialConfigGenerator;
+import fmustafic.simulator.logic.RandomConfigGenerator;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.event.KeyEvent;
+import javax.swing.JColorChooser;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
 /**
@@ -20,6 +21,8 @@ import org.netbeans.lib.awtextra.AbsoluteConstraints;
  */
 public class WolframAutomataFrame extends javax.swing.JFrame {
 
+    private NextStatePanel[] nextStatePanels = new NextStatePanel[8];
+    
     /**
      * Creates new form WolframAutomataFrame
      */
@@ -50,6 +53,8 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.white);
@@ -58,30 +63,40 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jSlider1.setMajorTickSpacing(50);
+        jSlider1.setMaximum(500);
+        jSlider1.setMinorTickSpacing(25);
         jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
+        jSlider1.setPaintTicks(true);
+        jSlider1.setSnapToTicks(true);
         jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
         getContentPane().add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, 278));
 
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setSelected(true);
         jRadioButton4.setText("middle black");
-        getContentPane().add(jRadioButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
+        getContentPane().add(jRadioButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
 
         buttonGroup1.add(jRadioButton5);
         jRadioButton5.setText("random");
-        getContentPane().add(jRadioButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, -1, -1));
+        getContentPane().add(jRadioButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
 
         buttonGroup1.add(jRadioButton6);
         jRadioButton6.setText("middle white");
-        getContentPane().add(jRadioButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
+        getContentPane().add(jRadioButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, -1, -1));
 
-        jButton1.setText("Stats");
+        jButton1.setText("toggle stats");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 67, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 20, 120, -1));
 
         jCheckBox1.setText("step-by-step");
         getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 610, -1, -1));
@@ -108,6 +123,22 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 650, -1, -1));
 
+        jButton4.setText("on color");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
+
+        jButton5.setText("off color");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -115,13 +146,24 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // toggle
+        int w = this.getWidth();
+        int h = this.getHeight();
+        
         if(isShrinked) {
             this.setSize(
-                    new Dimension(2 * this.getWidth(), this.getHeight())
+                    new Dimension(2 * w, h)
+            );
+            
+            this.setPreferredSize(
+                    new Dimension(2 * w, h)
             );
         } else {
             this.setSize(
-                    new Dimension((int)(0.5 * this.getWidth()), this.getHeight())
+                    new Dimension((int)(0.5 * w), h)
+            );
+            
+            this.setPreferredSize(
+                    new Dimension((int)(0.5 * w), h)
             );
         }
         
@@ -132,22 +174,59 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         this.updateNextStatePanels();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private EvolutionPanel evolutionPanel;
+    private final int EVOLUTION_PANEL_WIDTH = 500;
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int n = 100;
-        InitialConfigGenerator generator = new InitialConfigGenerator(n);
-        Boolean[] initialConfig = generator.getConfig();
-        
-        EvolutionPanel evolutionPanel = new EvolutionPanel(initialConfig, 100, 500, 110);
-        
-        this.getContentPane().add(
-                evolutionPanel, 
-                new AbsoluteConstraints(new Point(75, 80))
-        );
-        
-        this.pack();
-        this.repaint();
+        // TODO: take user input
+        displayEvolution();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        displayEvolution();
+    }//GEN-LAST:event_jSlider1StateChanged
+    
+    private Color onColor = Color.BLACK;
+    private Color offColor = Color.WHITE;
+    
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.onColor = JColorChooser.showDialog(this, "Choose on color", this.onColor);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        this.offColor = JColorChooser.showDialog(this, "Choose off color", this.offColor);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void displayEvolution() {
+        int n = this.jSlider1.getValue();
+        n = EVOLUTION_PANEL_WIDTH / (int)(EVOLUTION_PANEL_WIDTH / n);
+        
+        int rule = 0;
+        for(int i = 0; i < 8; i++) {
+            rule += (this.nextStatePanels[i].getCurrentState() ? 1 : 0) * (1 << (7 - i));
+            System.out.println(this.nextStatePanels[i].getCurrentState() ? "1" : "0");
+            System.out.println("\tpow: " + (7 - i) + " " + (1 << (7 - i)));
+        }
+        RandomConfigGenerator generator = new RandomConfigGenerator(n);
+        Boolean[] initialConfig = generator.getConfig();
+        
+        if(this.evolutionPanel != null) {
+            this.getContentPane().remove(this.evolutionPanel);
+        }
+
+        this.evolutionPanel = 
+                new EvolutionPanel(
+                    initialConfig, n, EVOLUTION_PANEL_WIDTH, rule, this.onColor, this.offColor
+                );
+
+        this.getContentPane().add(
+            evolutionPanel, 
+            new AbsoluteConstraints(new Point(75, 80))
+        );
+
+        this.pack();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -188,6 +267,8 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButton jRadioButton4;
@@ -219,10 +300,9 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         this.updateNextStatePanels();
     }
     
-    private NextStatePanel[] nextStatePanels = new NextStatePanel[8];
     
     private void updateNextStatePanels() {
-        int unitLength = this.getWidth() / 25;
+        int unitLength = ((this.isShrinked) ? this.getWidth() : this.getWidth() / 2) / 25;
         int yCoord = this.jLabel1.getY() + 50;
         int rule = Integer.parseInt(this.jTextField1.getText());
         
@@ -242,4 +322,5 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         
         this.pack();
     }
+    
 }

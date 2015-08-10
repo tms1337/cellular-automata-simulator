@@ -19,7 +19,10 @@ import javax.swing.JPanel;
  */
 public class EvolutionPanel extends JPanel {
     
-    public EvolutionPanel(Boolean[] initialConfig, int stepsRequired, int size, int rule) {
+    public EvolutionPanel(
+            Boolean[] initialConfig, int stepsRequired, int size, int rule,
+            Color onColor, Color offColor
+    ) {
         this.setPreferredSize(new Dimension(size, size));
         this.setSize(new Dimension(size, size));
         
@@ -30,6 +33,9 @@ public class EvolutionPanel extends JPanel {
         this.rule = rule;
         
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        
+        this.onColor = onColor;
+        this.offColor = offColor;
     }
     
     @Override
@@ -42,7 +48,7 @@ public class EvolutionPanel extends JPanel {
         
         for(int i = 0; i < evolutionSteps.length; i++) {
             for(int j = 0; j < evolutionSteps[i].length; j++) {
-                g.setColor(evolutionSteps[i][j] ? Color.BLACK : Color.WHITE);
+                g.setColor(evolutionSteps[i][j] ? onColor : offColor);
                 g.fillRect(j * unitLength, i * unitLength, unitLength, unitLength);
             }
         }
@@ -51,5 +57,8 @@ public class EvolutionPanel extends JPanel {
     private Boolean[][] states;
     private int stepsRequired;
     private int rule;
+    
+    private Color onColor;
+    private Color offColor;
     
 }

@@ -11,9 +11,9 @@ import java.util.Random;
  *
  * @author faruk
  */
-public class InitialConfigGenerator {
+public class RandomConfigGenerator { 
     
-    public InitialConfigGenerator(int n) {
+    public RandomConfigGenerator(int n) {
         this.n = n;
     }
     

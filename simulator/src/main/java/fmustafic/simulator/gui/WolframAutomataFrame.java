@@ -8,10 +8,17 @@ package fmustafic.simulator.gui;
 import fmustafic.simulator.gui.guielements.EvolutionPanel;
 import fmustafic.simulator.gui.guielements.NeighborhoodPanel;
 import fmustafic.simulator.gui.guielements.NextStatePanel;
+import fmustafic.simulator.gui.guielements.StatsPanel;
+import fmustafic.simulator.logic.MiddleBlackConfigGenerator;
+import fmustafic.simulator.logic.MiddleColRatioGenerator;
+import fmustafic.simulator.logic.MiddleWhiteConfigGenerator;
 import fmustafic.simulator.logic.RandomConfigGenerator;
+import fmustafic.simulator.logic.RowsCountGenerator;
+import fmustafic.simulator.logic.RowsRatioGenerator;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Random;
 import javax.swing.JColorChooser;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -55,6 +62,10 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.white);
@@ -64,11 +75,10 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jSlider1.setMajorTickSpacing(50);
-        jSlider1.setMaximum(500);
+        jSlider1.setMaximum(200);
         jSlider1.setMinorTickSpacing(25);
         jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
-        jSlider1.setPaintTicks(true);
-        jSlider1.setSnapToTicks(true);
+        jSlider1.setPaintLabels(true);
         jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -139,6 +149,19 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
 
+        jLabel2.setText("on/off ratio");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        jLabel3.setText("stats");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, -1, -1));
+
+        jLabel4.setText("middle col on/off ratio");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, -1, -1));
+
+        jLabel5.setText("on/off count");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 380, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -178,12 +201,13 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
     private final int EVOLUTION_PANEL_WIDTH = 500;
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO: take user input
         displayEvolution();
+        displayStats();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
         displayEvolution();
+        displayStats();
     }//GEN-LAST:event_jSlider1StateChanged
     
     private Color onColor = Color.BLACK;
@@ -207,8 +231,17 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
             System.out.println(this.nextStatePanels[i].getCurrentState() ? "1" : "0");
             System.out.println("\tpow: " + (7 - i) + " " + (1 << (7 - i)));
         }
-        RandomConfigGenerator generator = new RandomConfigGenerator(n);
-        Boolean[] initialConfig = generator.getConfig();
+        Boolean[] initialConfig;
+        if(this.jRadioButton4.isSelected()) {
+            MiddleBlackConfigGenerator generator = new MiddleBlackConfigGenerator(n);
+            initialConfig = generator.getConfig();
+        } else if(this.jRadioButton6.isSelected()) {
+            MiddleWhiteConfigGenerator generator = new MiddleWhiteConfigGenerator(n);
+            initialConfig = generator.getConfig();
+        } else {
+            RandomConfigGenerator generator = new RandomConfigGenerator(n);
+            initialConfig = generator.getConfig();            
+        }
         
         if(this.evolutionPanel != null) {
             this.getContentPane().remove(this.evolutionPanel);
@@ -224,6 +257,63 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
             new AbsoluteConstraints(new Point(75, 80))
         );
 
+        this.pack();
+    }
+    
+    private StatsPanel ratioStatsPanel = null;
+    private StatsPanel middleColRatioStatsPanel = null;
+    private StatsPanel rowsCountStatsPanel = null;
+    
+    private void displayStats() {
+        Boolean[][] states = this.evolutionPanel.getStates();
+        
+        // all rows
+        
+        RowsRatioGenerator rationGenerator = 
+                new RowsRatioGenerator(this.evolutionPanel.getStates());
+        double[][] dataSet = rationGenerator.getDataSet();
+        
+        if(ratioStatsPanel != null) {
+            this.getContentPane().remove(ratioStatsPanel);
+        }
+        
+        ratioStatsPanel = new StatsPanel(dataSet, 500, 100, onColor);
+        
+        this.getContentPane().add(ratioStatsPanel,
+                new AbsoluteConstraints(new Point(700, 100))
+        );
+        
+        // middle col
+        
+        MiddleColRatioGenerator middleColRationGenerator = 
+                new MiddleColRatioGenerator(this.evolutionPanel.getStates());
+        double[][] middleColDataSet = middleColRationGenerator.getDataSet();
+        
+        if(middleColRatioStatsPanel != null) {
+            this.getContentPane().remove(middleColRatioStatsPanel);
+        }
+        
+        middleColRatioStatsPanel = new StatsPanel(middleColDataSet, 500, 100, onColor);
+        
+        this.getContentPane().add(middleColRatioStatsPanel,
+                new AbsoluteConstraints(new Point(700, 250))
+        );
+        
+        // all rows count
+        RowsCountGenerator rowsCountRationGenerator = 
+                new RowsCountGenerator(this.evolutionPanel.getStates());
+        double[][] rowsCountDataSet = rowsCountRationGenerator.getDataSet();
+        
+        if(rowsCountStatsPanel != null) {
+            this.getContentPane().remove(rowsCountStatsPanel);
+        }
+        
+        rowsCountStatsPanel = new StatsPanel(rowsCountDataSet, 500, 100, onColor);
+        
+        this.getContentPane().add(rowsCountStatsPanel,
+                new AbsoluteConstraints(new Point(700, 400))
+        );
+        
         this.pack();
     }
     
@@ -271,6 +361,10 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JRadioButton jRadioButton6;

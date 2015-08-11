@@ -5,7 +5,6 @@
  */
 package fmustafic.simulator.gui.guielements;
 
-import fmustafic.simulator.gui.wguielements.InitialConfigurationSetterPanel;
 import fmustafic.simulator.logic.AutomataSimulator;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -52,6 +51,14 @@ public class EvolutionPanel extends JPanel {
                 g.fillRect(j * unitLength, i * unitLength, unitLength, unitLength);
             }
         }
+    }
+    
+    public Boolean[][] getStates() {
+        AutomataSimulator simulator = 
+            new AutomataSimulator(this.states[0], this.stepsRequired, this.rule);
+        Boolean[][] statesCopy = simulator.getSteps();
+        
+        return statesCopy;
     }
     
     private Boolean[][] states;

@@ -53,14 +53,27 @@ public class StatsPanel extends JPanel {
         
         int i = 0;
         for (double[] dataSet1 : this.dataSet) {
+            int prevX = -1;
+            int prevY = -1;
             for (int j = 0; j < dataSet1.length; j++) {
+                int currX = j * unitLength;
+                int currY = this.getHeight() - (int) (0.9 * (dataSet1[j] / maxValue) * this.getHeight());
+                
                 g.setColor(this.defaultColors[i]);
+                
                 g.drawRect(
-                    j * unitLength, 
-                    this.getHeight() - (int) (0.9 * (dataSet1[j] / maxValue) * this.getHeight()), 
+                    currX, 
+                    currY, 
                     1, 
                     1
                 );
+                
+                if(prevX != -1 && prevY != -1) {
+                    g.drawLine(prevX, prevY, currX, currY);
+                }
+                
+                prevX = currX;
+                prevY = currY;
             }
             ++i;
         }

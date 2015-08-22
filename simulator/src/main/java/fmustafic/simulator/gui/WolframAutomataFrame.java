@@ -18,7 +18,6 @@ import fmustafic.simulator.logic.RowsRatioGenerator;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.Random;
 import javax.swing.JColorChooser;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 
@@ -66,6 +65,8 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jCheckBox2 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.white);
@@ -106,7 +107,7 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 20, 120, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 120, -1));
 
         jCheckBox1.setText("step-by-step");
         getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 610, -1, -1));
@@ -161,6 +162,12 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
 
         jLabel5.setText("on/off count");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 380, -1, -1));
+
+        jTextField2.setText("0.5");
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 40, -1));
+
+        jCheckBox2.setText("include density");
+        getContentPane().add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -240,7 +247,12 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
             initialConfig = generator.getConfig();
         } else {
             RandomConfigGenerator generator = new RandomConfigGenerator(n);
-            initialConfig = generator.getConfig();            
+            if(!this.jCheckBox2.isSelected()) {
+                initialConfig = generator.getConfig();            
+            } else {
+                double density = Double.parseDouble(this.jTextField2.getText());
+                initialConfig = generator.getConfigWithDensity(density);
+            }
         }
         
         if(this.evolutionPanel != null) {
@@ -360,6 +372,7 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -370,6 +383,7 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {

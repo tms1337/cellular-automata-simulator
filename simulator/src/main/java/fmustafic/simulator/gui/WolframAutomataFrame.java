@@ -76,10 +76,12 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jSlider1.setMajorTickSpacing(50);
-        jSlider1.setMaximum(200);
-        jSlider1.setMinorTickSpacing(25);
+        jSlider1.setMaximum(250);
+        jSlider1.setMinimum(25);
+        jSlider1.setMinorTickSpacing(50);
         jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
         jSlider1.setPaintLabels(true);
+        jSlider1.setSnapToTicks(true);
         jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -238,6 +240,7 @@ public class WolframAutomataFrame extends javax.swing.JFrame {
             System.out.println(this.nextStatePanels[i].getCurrentState() ? "1" : "0");
             System.out.println("\tpow: " + (7 - i) + " " + (1 << (7 - i)));
         }
+        
         Boolean[] initialConfig;
         if(this.jRadioButton4.isSelected()) {
             MiddleBlackConfigGenerator generator = new MiddleBlackConfigGenerator(n);

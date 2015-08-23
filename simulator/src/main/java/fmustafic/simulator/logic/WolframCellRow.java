@@ -6,7 +6,6 @@
 package fmustafic.simulator.logic;
 
 import java.security.InvalidParameterException;
-import java.util.concurrent.CyclicBarrier;
 
 /**
  *
@@ -42,10 +41,10 @@ public class WolframCellRow {
     public void setRowState(String state) {
         if (state.length() != this.rowState.length) {
             throw new InvalidParameterException(
-                    "State length != " + this.rowState.length
+                "State length != " + this.rowState.length
             );
         }
-
+        
         for (int i = 0; i < state.length(); i++) {
             char currentChar = state.charAt(i);
             if (currentChar != '0' && currentChar != '1') {
@@ -79,9 +78,9 @@ public class WolframCellRow {
                 = (n + 1 >= rowState.length) ? 0 : (n + 1);
 
         this.nextRowState[n] = this.rules.getNextState(
-                this.rowState[leftIndex],
-                this.rowState[n],
-                this.rowState[rightIndex]
+            this.rowState[leftIndex],
+            this.rowState[n],
+            this.rowState[rightIndex]
         );
     }
 

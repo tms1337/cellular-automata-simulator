@@ -5,6 +5,8 @@
  */
 package fmustafic.simulator.logic;
 
+import java.util.concurrent.ForkJoinPool;
+
 /**
  *
  * @author faruk
@@ -24,10 +26,23 @@ public class AutomataSimulator {
         WolframCellRow ruleLogic = 
                 new WolframCellRow(this.initialState.length, this.rule);
         
+        /* parallele test 
+        ForkJoinPool fjPool = new ForkJoinPool();
+        */
+        
         for(int i = 1; i < stepsResult.length; i++) {
             ruleLogic.setRowState(stepsResult[i - 1]);
             ruleLogic.evolveAll();
             stepsResult[i] = ruleLogic.getRowState();
+            
+            /* parallele test 
+            Boolean[] prevStep = stepsResult[i - 1];
+            
+            stepsResult[i] = 
+                fjPool.invoke(
+                    new WolframNextStateComputer(prevStep, 0, prevStep.length, this.rule)
+                );
+            */
         }
         
         return stepsResult.clone();

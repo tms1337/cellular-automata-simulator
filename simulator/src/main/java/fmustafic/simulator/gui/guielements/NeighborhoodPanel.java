@@ -5,7 +5,6 @@
  */
 package fmustafic.simulator.gui.guielements;
 
-import com.sun.java.swing.plaf.motif.MotifBorders;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;

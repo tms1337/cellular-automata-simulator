@@ -5,8 +5,6 @@
  */
 package fmustafic.simulator.logic;
 
-import java.util.concurrent.ForkJoinPool;
-
 /**
  *
  * @author faruk
@@ -18,7 +16,7 @@ public class AutomataSimulator {
         this.stepsRequired = stepsRequired;
         this.rule = rule;
     }
-
+    
     public Boolean[][] getSteps() {
         Boolean[][] stepsResult = new Boolean[this.stepsRequired][initialState.length];
         stepsResult[0] = this.initialState;
